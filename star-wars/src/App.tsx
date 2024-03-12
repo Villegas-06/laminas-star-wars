@@ -1,22 +1,34 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginComponent from './components/Login/Login';
 import HomeComponent from './components/Home/Home';
-import { useAuth } from './auth/authProvider';
+import AuthProvider, { useAuth } from './auth/authProvider';
+import NotFound from './components/NotFound/NotFound';
 
 const App: React.FC = () => {
-  const { isLoggedIn, login, logout } = useAuth();
-
   return (
     <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<LoginComponent onLogin={login} />} />
-          <Route path="/home" element={<HomeComponent />} />
-        </Routes>
-      </div>
+      <AuthProvider>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<LoginComponent />} />
+            <Route path="/home" element={<ProtectedRoute />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+      </AuthProvider>
     </Router>
   );
+};
+
+const ProtectedRoute: React.FC = () => {
+  const { isLoggedIn } = useAuth();
+
+  if (!isLoggedIn()) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <HomeComponent />;
 };
 
 export default App;

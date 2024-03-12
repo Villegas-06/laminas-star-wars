@@ -1,6 +1,4 @@
-// AuthProvider.tsx
-
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import usersData from '../data/users.json';
 import Swal from 'sweetalert2';
 
@@ -28,8 +26,16 @@ export const useAuth = (): AuthContextType => {
   return context;
 };
 
-const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    // Check if user is already logged in (persist state)
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const login = (username: string, password: string) => {
     const foundUser = usersData.users.find(
@@ -38,6 +44,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
     if (foundUser) {
       setUser(foundUser);
+      localStorage.setItem('user', JSON.stringify(foundUser));
     } else {
       Swal.fire({
         icon: 'error',
@@ -50,6 +57,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem('user');
   };
 
   const isLoggedIn = () => {
