@@ -6,6 +6,8 @@ import HomeComponent from './components/Home/Home';
 import AuthProvider, { useAuth } from './auth/authProvider';
 import NotFound from './components/NotFound/NotFound';
 
+import './App.css'
+
 const App: React.FC = () => {
   return (
     <Router>

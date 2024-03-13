@@ -23,12 +23,12 @@ const LoginComponent: React.FC = () => {
   const handleSumbit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!username || username.trim() === '') {
+    if (!username || !username.trim()) {
       setError('Por favor ingresa un nombre de usuario');
       return;
     }
 
-    if (!password || password.trim() === '') {
+    if (!password || !password.trim()) {
       setError('Por favor ingresa una contraseña');
       return;
     }
