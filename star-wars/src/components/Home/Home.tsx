@@ -1,22 +1,24 @@
 import React from 'react';
-import {useNavigate} from 'react-router-dom';
-import { useAuth } from '../../auth/authProvider';
+import { Link } from 'react-router-dom';
+import '../../styles/home.css'
 
-const HomeComponent: React.FC = () => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
-
+const Home: React.FC = () => {
   return (
-    <div>
-      <h2>Bienvenido, {user?.username}</h2>
-      <button onClick={handleLogout}>Cerrar sesión</button>
+    <div className="home-container">
+      <div className="home-section">
+        <h2>Ir al Álbum</h2>
+        <Link to="/album" className="btn">
+          Ir al Álbum
+        </Link>
+      </div>
+      <div className="home-section">
+        <h2>Obtener Láminas</h2>
+        <Link to="/obtain-packs" className="btn">
+          Obtener Láminas
+        </Link>
+      </div>
     </div>
   );
 };
 
-export default HomeComponent;
+export default Home;
