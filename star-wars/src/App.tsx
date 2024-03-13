@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginComponent from './components/Login/Login';
+import RegisterComponent from './components/Register/Register';
 import HomeComponent from './components/Home/Home';
 import AuthProvider, { useAuth } from './auth/authProvider';
 import NotFound from './components/NotFound/NotFound';
@@ -12,6 +13,7 @@ const App: React.FC = () => {
         <div className="App">
           <Routes>
             <Route path="/" element={<LoginComponent />} />
+            <Route path="/register" element={<RegisterComponent />} />
             <Route path="/home" element={<ProtectedRoute />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

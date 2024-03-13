@@ -43,8 +43,10 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     );
 
     if (foundUser) {
-      setUser(foundUser);
-      localStorage.setItem('user', JSON.stringify(foundUser));
+      const userWithoutPassword: Partial<User> = { ...foundUser };
+      delete userWithoutPassword.password; // Remove the 'password' field
+      setUser(userWithoutPassword as User); // Cast to User
+      localStorage.setItem('user', JSON.stringify(userWithoutPassword));
     } else {
       Swal.fire({
         icon: 'error',
