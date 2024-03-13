@@ -24,7 +24,7 @@ const App: React.FC = () => {
     <Router>
         <div className="App">
           <Routes>
-            <Route path="/home" element={<HomeComponent />} />
+            <Route path="*" element={<HomeComponent />} />
             <Route
               path="/album"
               element={
