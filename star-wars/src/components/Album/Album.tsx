@@ -8,21 +8,22 @@ interface AlbumProps {
 }
 
 const Album: React.FC<AlbumProps> = ({ laminas, handleAddToAlbum, handleDiscard }) => {
-  return (
-    <div>
-      <h2>Álbum</h2>
+    
+    return (
       <div>
-        {laminas.map((lamina, index) => (
-          <LaminaCard
-            key={index}
-            lamina={lamina}
-            onAgregar={() => handleAddToAlbum(lamina)}
-            onDescartar={() => handleDiscard(lamina.id)}
-          />
-        ))}
+        <h2>Álbum</h2>
+        <div>
+          {laminas.map((lamina, index) => (
+            <LaminaCard
+              key={index}
+              lamina={lamina}
+              onAgregar={() => handleAddToAlbum(lamina)}
+              onDescartar={() => handleDiscard(lamina.id)}
+            />
+          ))}
+        </div>
       </div>
-    </div>
-  );
-};
-
+    );
+  };
+  
 export default Album;

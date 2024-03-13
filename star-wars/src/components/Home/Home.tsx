@@ -7,7 +7,7 @@ const Home: React.FC = () => {
     <div className="home-container">
       <div className="home-section">
         <h2>Ir al Álbum</h2>
-        <Link to="/album" className="btn">
+        <Link to="/my-album" className="btn">
           Ir al Álbum
         </Link>
       </div>

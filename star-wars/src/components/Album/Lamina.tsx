@@ -15,15 +15,26 @@ interface LaminaCardProps {
 }
 
 const LaminaCard: React.FC<LaminaCardProps> = ({ lamina, onAgregar, onDescartar }) => {
+  const handleAgregarClick = () => {
+    if (lamina.agregada) {
+      onDescartar(); // Si está agregada, descartar
+    } else {
+      onAgregar(); // Si no está agregada, agregar
+    }
+  };
+
   return (
     <div>
       <h3>{lamina.nombre}</h3>
       <p>Sección: {lamina.seccion}</p>
       <p>Categoría: {lamina.categoria}</p>
       {lamina.agregada ? (
-        <button onClick={onDescartar}>Descartar</button>
+        <div>
+          <button disabled>Agregada al Álbum</button>
+          <button onClick={handleAgregarClick}>Descartar</button>
+        </div>
       ) : (
-        <button onClick={onAgregar}>Agregar al Álbum</button>
+        <button onClick={handleAgregarClick}>Agregar al Álbum</button>
       )}
     </div>
   );
