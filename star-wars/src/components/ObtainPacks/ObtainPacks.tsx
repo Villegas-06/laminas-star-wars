@@ -2,22 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { getFilms, getPeople, getStarships } from '../../services/swapiService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '../../styles/obtainpacks.css';
 
 const ObtainPacks: React.FC = () => {
   const [packs, setPacks] = useState<number>(4);
   const [packOpened, setPackOpened] = useState<boolean>(false);
   const [cooldown, setCooldown] = useState<boolean>(false);
+  const [cooldownTime, setCooldownTime] = useState<number>(60);
   const [newLaminas, setNewLaminas] = useState<any[]>([]);
   const [allLaminas, setAllLaminas] = useState<any[]>([]);
   const [album, setAlbum] = useState<any[]>([]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setCooldown(false);
-    }, 60000);
+    let timer: NodeJS.Timeout;
+    if (packOpened) {
+      timer = setTimeout(() => {
+        if (cooldownTime > 0) {
+          setCooldownTime(cooldownTime - 1);
+        } else {
+          setCooldown(false);
+          setCooldownTime(60);
+        }
+      }, 1000);
+    }
 
     return () => clearTimeout(timer);
-  }, [packOpened]);
+  }, [packOpened, cooldownTime]);
 
   useEffect(() => {
     const storedLaminas = localStorage.getItem('laminas');
@@ -39,12 +49,6 @@ const ObtainPacks: React.FC = () => {
 
         const laminas = generateLaminas(films, people, starships);
         setNewLaminas(laminas);
-
-        const filteredLaminas = laminas.filter(lamina => !album.some(a => a.uniqueId === lamina.uniqueId));
-
-        const updatedLaminas = [...allLaminas, ...filteredLaminas];
-        setAllLaminas(updatedLaminas);
-        localStorage.setItem('laminas', JSON.stringify(updatedLaminas));
       } catch (error) {
         console.error('Error al obtener las láminas:', error);
       }
@@ -103,8 +107,17 @@ const ObtainPacks: React.FC = () => {
         progress: undefined,
       });
 
-      const updatedNewLaminas = newLaminas.filter(l => l.uniqueId !== lamina.uniqueId);
+      const updatedNewLaminas = newLaminas.map(l => {
+        if (l.uniqueId === lamina.uniqueId) {
+          return { ...l, agregada: true };
+        }
+        return l;
+      });
       setNewLaminas(updatedNewLaminas);
+
+      const updatedAllLaminas = [...allLaminas, lamina];
+      setAllLaminas(updatedAllLaminas);
+      localStorage.setItem('laminas', JSON.stringify(updatedAllLaminas));
     } else {
       toast.error('Esta lámina ya está en tu álbum.', {
         position: 'top-right',
@@ -125,47 +138,40 @@ const ObtainPacks: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Obtener Sobres</h2>
-      <div>
+    <div className="obtain-packs-container">
+      <h2 className="obtain-packs-header">Obtener Sobres</h2>
+      <div className="row">
         {Array.from({ length: packs }).map((_, index) => (
-          <div key={`pack-${index}`}>
-            <h3>Sobre {index + 1}</h3>
-            <button disabled={isPackDisabled} onClick={openPack}>
-              {isPackDisabled ? 'Cooldown' : 'Abrir Sobre'}
-            </button>
-          </div>
-        ))}
-        {packOpened && (
-          <div>
-            <h3>Láminas del Sobre Actual:</h3>
-            {newLaminas.map((lamina, index) => (
-              <div key={`lamina-${index}`}>
-                <p>{`Lámina ${index + 1}: ${lamina.nombre}`}</p>
-                <p>{`Sección: ${lamina.seccion}`}</p>
-                <p>{`Categoría: ${lamina.categoria}`}</p>
-                {lamina.agregada ? (
-                  <button disabled>Agregada al Álbum</button>
-                ) : (
-                  <button onClick={() => handleAddToAlbum(lamina)}>Agregar al Álbum</button>
-                )}
+          <div key={`pack-${index}`} className="col-md-3 mt-3">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">Sobre {index + 1}</h5>
+                <button className="btn btn-primary" disabled={isPackDisabled} onClick={openPack}>
+                  {isPackDisabled ? 'Cooldown' : 'Abrir Sobre'}
+                </button>
               </div>
-            ))}
-            {cooldown && <p>Cooldown activo, espera 1 minuto antes de abrir otro sobre.</p>}
-          </div>
-        )}
-      </div>
-
-      <div>
-        <h2>Mi Álbum</h2>
-        {album.map((lamina, index) => (
-          <div key={`album-lamina-${index}`}>
-            <p>{`Lámina ${index + 1}: ${lamina.nombre}`}</p>
-            <p>{`Sección: ${lamina.seccion}`}</p>
-            <p>{`Categoría: ${lamina.categoria}`}</p>
+            </div>
           </div>
         ))}
       </div>
+      {packOpened && (
+        <div className="mt-4">
+          <h3>Láminas del Sobre Actual:</h3>
+          {newLaminas.map((lamina, index) => (
+            <div key={`lamina-${index}`} className="lamina-card">
+              <p>{`Lámina ${index + 1}: ${lamina.nombre}`}</p>
+              <p>{`Sección: ${lamina.seccion}`}</p>
+              <p>{`Categoría: ${lamina.categoria}`}</p>
+              {lamina.agregada ? (
+                <button className="btn btn-secondary" disabled>Agregada al Álbum</button>
+              ) : (
+                <button className="btn btn-success" onClick={() => handleAddToAlbum(lamina)}>Agregar al Álbum</button>
+              )}
+            </div>
+          ))}
+          <p className="cooldown-text">{cooldown && <strong>Cooldown activo, espera {cooldownTime} segundos antes de abrir otro sobre.</strong>}</p>
+        </div>
+      )}
 
       <ToastContainer
         position="top-right"

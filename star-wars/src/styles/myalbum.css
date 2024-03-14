@@ -1,0 +1,39 @@
+.obtain-packs-container {
+  padding: 20px;
+}
+
+.obtain-packs-header {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffc107;
+  margin-bottom: 20px;
+}
+
+.obtain-packs-text {
+  color: #fff;
+}
+
+.album-card {
+  background-color: #343a40;
+  color: #fff;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.album-card:hover {
+  background-color: #999fa5;
+}
+
+.remove-button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+  background-color: #c82333;
+}

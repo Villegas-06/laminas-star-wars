@@ -1,0 +1,62 @@
+.obtain-packs-container {
+  padding: 20px;
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+.obtain-packs-header {
+  color: #0d6efd;
+}
+
+.card {
+  background-color: #333;
+  color: #fff;
+}
+
+.card-title {
+  color: #ffe81f;
+}
+
+.lamina-card {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #111;
+  border: 1px solid #333;
+}
+
+.btn-primary {
+  background-color: #ffe81f;
+  color: #333;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #ffd500;
+  color: #333;
+}
+
+.btn-success {
+  background-color: #33cc33;
+  color: #fff;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #2eb82e;
+  color: #fff;
+}
+
+.btn-secondary {
+  background-color: #888888;
+  color: #fff;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #6c6c6c;
+  color: #fff;
+}
+
+.cooldown-text {
+  color: #ff0000;
+}
