@@ -18,7 +18,7 @@
 }
 
 .lamina-card {
-  margin-bottom: 10px;
+  margin-bottom: 17px;
   padding: 10px;
   background-color: #111;
   border: 1px solid #333;
@@ -56,7 +56,27 @@
   background-color: #6c6c6c;
   color: #fff;
 }
+.cooldown-container {
+  margin-top: 20px;
+}
 
 .cooldown-text {
-  color: #ff0000;
+  font-size: 18px;
+  color: #dc3545;
+}
+
+@keyframes cardShine {
+  0% {
+    box-shadow: 0 0 10px 0 #00cdff;
+  }
+  50% {
+    box-shadow: 0 0 20px 0 #00cdff;
+  }
+  100% {
+    box-shadow: 0 0 10px 0 #00cdff;
+  }
+}
+
+.lamina-especial {
+  animation: cardShine 1.5s linear infinite;
 }
