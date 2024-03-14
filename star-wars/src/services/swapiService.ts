@@ -16,3 +16,18 @@ export async function getStarships() {
   const response = await axios.get(`${SWAPI_BASE_URL}/starships`);
   return response.data;
 }
+
+export async function getFilmById(id: string) {
+  const response = await axios.get(`${SWAPI_BASE_URL}/films/${id}`);
+  return response.data;
+}
+
+export async function getPersonById(id: string) {
+  const response = await axios.get(`${SWAPI_BASE_URL}/people/${id}`);
+  return response.data;
+}
+
+export async function getStarshipById(id: string) {
+  const response = await axios.get(`${SWAPI_BASE_URL}/starships/${id}`);
+  return response.data;
+}
