@@ -1,7 +1,17 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .obtain-packs-container {
+  min-height: 100vh;
   padding: 20px;
   background-color: #1e1e1e;
   color: #fff;
+  display: flex;
+  flex-direction: column;
 }
 
 .obtain-packs-header {
@@ -25,7 +35,7 @@
 }
 
 .btn-primary {
-  background-color: #ffe81f;
+  background-color: #0d6efd;
   color: #333;
   border: none;
 }
@@ -56,6 +66,7 @@
   background-color: #6c6c6c;
   color: #fff;
 }
+
 .cooldown-container {
   margin-top: 20px;
 }
