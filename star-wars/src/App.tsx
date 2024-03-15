@@ -12,7 +12,7 @@ const App: React.FC = () => {
       <CooldownProvider>
         <div className="App">
           <Routes> 
-            <Route path="/" element={<HomeComponent />} />
+            <Route path="*" element={<HomeComponent />} />
             <Route path="/obtain-packs" element={<ObtainPacks />} />
             <Route path="/my-album" element={<AlbumSection />} />
           </Routes>
