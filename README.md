@@ -61,4 +61,7 @@ Antes de continuar con los pasos de instalación espera a que Node.js y git sean
 
 3. **Datos adicionales**
 
-    Si te quedas sin cards, no te preocupes, solo debes refrescar la pagina y saldran nuevas cards!
+    Si te quedas sin cards, no te preocupes, solo debes refrescar la pagina y saldran nuevas cards!.
+    Es importante que lo hagas cuando ya todo este desacartado.
+   
+    Gracias por ver.
