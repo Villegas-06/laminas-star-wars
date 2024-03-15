@@ -58,3 +58,7 @@ Antes de continuar con los pasos de instalación espera a que Node.js y git sean
         npm start
 
         Esto lanzará la aplicación de react
+
+3. **Datos adicionales**
+
+    Si te quedas sin cards, no te preocupes, solo debes refrescar la pagina y saldran nuevas cards!
